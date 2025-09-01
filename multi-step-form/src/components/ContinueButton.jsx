@@ -1,6 +1,9 @@
-export const ContinueButton = () => {
+export const ContinueButton = (onChangeStep) => {
   return (
-    <button className="self-stretch px-3 py-2.5 bg-neutral-900 rounded-md inline-flex justify-center items-center gap-1">
+    <button
+      onChange={onChangeStep}
+      className="self-stretch px-3 py-2.5 bg-neutral-900 rounded-md inline-flex justify-center items-center gap-1"
+    >
       <span className="justify-start text-white text-base font-medium font-['Inter'] leading-normal">
         Continue
       </span>{" "}

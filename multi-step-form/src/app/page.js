@@ -1,32 +1,65 @@
 "use client";
 
-import { TextField, ContinueButton } from "@/components";
-import { useState } from "react";
+import { TextField, ContinueButton, Hero } from "@/components";
+import { use, useState } from "react";
 import React from "react";
 
 export default function Home() {
-  const [firstName, setFirstName] = useState("");
+  const [step, setStep] = useState("step1"); // step2, step3
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+    dateOfBirth: "",
+    profileImage: "",
+  });
 
-  return (
-    <div className="bg-black font-['Inter'] flex align-middle justify-center w-[100%] h-[100%]">
-      <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-        <div className="w-[100%] inline-flex flex-col justify-start items-start gap-2">
-          <img className="w-14 h-14" src="pinecone.png" alt="pinecone logo" />
-
-          <div className="self-stretch justify-center text-neutral-800 text-2xl font-semibold">
-            Join Us! 😎
+  if (step === "step1") {
+    return (
+      <div className="bg-black font-['Inter'] flex align-middle justify-center w-[100%] h-[100%]">
+        <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
+          <div className="flex flex-col w-full  justify-start items-start gap-2">
+            <Hero />
+            <div className="flex flex-col gap-3 w-[100%]">
+              <TextField
+                name="First Name"
+                value={form.firstName}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    firstName: e.target.value,
+                  })
+                }
+              />
+              <TextField
+                name="Last Name"
+                value={form.lastName}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    lastName: e.target.value,
+                  })
+                }
+              />
+              <TextField
+                name="Username"
+                value={form.userName}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    userName: e.target.value,
+                  })
+                }
+              />
+            </div>
           </div>
-          <div className="self-stretch w-full justify-center text-neutral-400 text-lg font-normal">
-            Please provide all current information accurately.
-          </div>
-          <div className="flex flex-col gap-3 w-[100%]">
-            <TextField name="First Name" firstName={firstName} />
-            <TextField name="Last Name" />
-            <TextField name="Username" />
-          </div>
+          <ContinueButton onChangeStep={setStep} />
         </div>
-        <ContinueButton />
       </div>
-    </div>
-  );
+    );
+  }
 }
