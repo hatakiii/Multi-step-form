@@ -1,4 +1,4 @@
-export const TextField = (props) => {
+export const TextField = ({firstName}) => {
   return (
     <div className="flex ">
       <div className="self-stretch justify-end flex flex-col gap-2 w-[100%]">
@@ -14,6 +14,8 @@ export const TextField = (props) => {
         <input
           placeholder="Type something"
           className="self-stretch w-[100%] p-3 rounded-lg outline  outline-offset-[-1px] outline-sky-500 inline-flex justify-start items-center"
+          value={firstName}
+          onChange={}
         ></input>
       </div>
     </div>
