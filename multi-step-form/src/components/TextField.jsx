@@ -1,7 +1,7 @@
-export const TextField = ({ name, value, onChange, type }) => {
+export const TextField = ({ name, value, onChange, type, errorMessage }) => {
   return (
-    <div className="flex h-[68px]">
-      <div className="self-stretch justify-end flex flex-col gap-2 w-[100%] h-[68px]">
+    <div className="flex ">
+      <div className="self-stretch justify-end flex flex-col  w-[100%]">
         <div>
           <span className="text-slate-700 text-sm font-semibold font-['Inter'] leading-none">
             {name}
@@ -18,6 +18,9 @@ export const TextField = ({ name, value, onChange, type }) => {
           value={value}
           onChange={onChange}
         ></input>
+        {errorMessage && (
+          <div className="text-red-500 text-sm">{errorMessage}</div>
+        )}
       </div>
     </div>
   );

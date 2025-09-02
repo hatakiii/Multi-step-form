@@ -9,7 +9,8 @@ import {
   DateOfBirth,
   ImageUpload,
 } from "@/components";
-
+import { Step1 } from "@/components/Step1";
+import { Step2 } from "@/components/Step2";
 import { useState } from "react";
 import React from "react";
 
@@ -26,111 +27,43 @@ export default function Home() {
     dateOfBirth: "",
     profileImage: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const goToSecond = () => {
+    setStep("step2");
+  };
+
+  const goToThird = () => {
+    setStep("step3");
+  };
+
+  const goBackFirst = () => {
+    setStep("step1");
+  };
 
   if (step === "step1") {
     return (
-      <div className="bg-black font-['Inter'] flex align-middle justify-center w-[100%] h-[100%]">
-        <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-          <div className="flex flex-col w-full  justify-start items-start gap-7">
-            <Hero />
-            <div className="flex flex-col gap-3 w-[100%]">
-              <TextField
-                name="First Name"
-                value={form.firstName}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    firstName: e.target.value,
-                  })
-                }
-              />
-              <TextField
-                name="Last Name"
-                value={form.lastName}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    lastName: e.target.value,
-                  })
-                }
-              />
-              <TextField
-                name="Username"
-                value={form.userName}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    userName: e.target.value,
-                  })
-                }
-              />
-            </div>
-          </div>
-          <ContinueButton onChangeStep={() => setStep("step2")} />
-        </div>
-      </div>
+      <Step1
+        form={form}
+        setForm={setForm}
+        errors={errors}
+        setErrors={setErrors}
+        goToSecond={goToSecond} // Pass goToSecond function
+      />
     );
   }
   if (step === "step2") {
     return (
-      <div className="bg-black font-['Inter'] flex align-middle justify-center w-[100%] h-[100%]">
-        <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-          <div className="flex flex-col w-full  justify-start items-start">
-            <Hero />
-            <div className="flex flex-col gap-3 w-[100%]">
-              <TextField
-                name="Email"
-                value={form.email}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    email: e.target.value,
-                  })
-                }
-              />
-              <TextField
-                name="Phone Number"
-                value={form.phoneNumber}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    phoneNumber: e.target.value,
-                  })
-                }
-              />
-              <TextField
-                type="password"
-                name="Password"
-                value={form.password}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    password: e.target.value,
-                  })
-                }
-              />
-              <TextField
-                type="password"
-                name="Confirm Password"
-                value={form.confirmPassword}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    confirmPassword: e.target.value,
-                  })
-                }
-              />
-            </div>
-          </div>
-          <div className="flex w-full gap-2">
-            <BackButton onChangeStep={() => setStep("step1")} />
-            <ContinueButton2
-              content="2/3"
-              onChangeStep={() => setStep("step3")}
-            />
-          </div>
-        </div>
-      </div>
+      <Step2
+        form={form}
+        setForm={setForm}
+        errors={errors}
+        setErrors={setErrors}
+        goToThird={goToThird} // Pass goToThird function
+        BackButton={BackButton}
+        goBackFirst={goBackFirst}
+        ContinueButton2={ContinueButton2}
+      />
     );
   }
 
