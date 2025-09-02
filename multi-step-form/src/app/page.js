@@ -48,7 +48,7 @@ export default function Home() {
         setForm={setForm}
         errors={errors}
         setErrors={setErrors}
-        goToSecond={goToSecond} // Pass goToSecond function
+        goToSecond={goToSecond}
       />
     );
   }
@@ -59,7 +59,7 @@ export default function Home() {
         setForm={setForm}
         errors={errors}
         setErrors={setErrors}
-        goToThird={goToThird} // Pass goToThird function
+        goToThird={goToThird}
         BackButton={BackButton}
         goBackFirst={goBackFirst}
         ContinueButton2={ContinueButton2}
