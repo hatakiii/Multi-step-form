@@ -99,6 +99,7 @@ export default function Home() {
                 }
               />
               <TextField
+                type="password"
                 name="Password"
                 value={form.password}
                 onChange={(e) =>
@@ -109,6 +110,7 @@ export default function Home() {
                 }
               />
               <TextField
+                type="password"
                 name="Confirm Password"
                 value={form.confirmPassword}
                 onChange={(e) =>
@@ -122,7 +124,10 @@ export default function Home() {
           </div>
           <div className="flex w-full gap-2">
             <BackButton onChangeStep={() => setStep("step1")} />
-            <ContinueButton2 onChangeStep={() => setStep("step3")} />
+            <ContinueButton2
+              content="2/3"
+              onChangeStep={() => setStep("step3")}
+            />
           </div>
         </div>
       </div>
@@ -151,7 +156,10 @@ export default function Home() {
           </div>
           <div className="flex w-full gap-2">
             <BackButton onChangeStep={() => setStep("step2")} />
-            <ContinueButton2 onChangeStep={() => setStep("final")} />
+            <ContinueButton2
+              content="3/3"
+              onChangeStep={() => setStep("final")}
+            />
           </div>
         </div>
       </div>

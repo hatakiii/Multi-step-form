@@ -1,4 +1,4 @@
-export const ContinueButton2 = ({ onChangeStep }) => {
+export const ContinueButton2 = ({ onChangeStep, content }) => {
   return (
     <button
       onClick={onChangeStep}
@@ -8,7 +8,7 @@ export const ContinueButton2 = ({ onChangeStep }) => {
         Continue
       </span>{" "}
       <span className="justify-start text-white text-base font-normal font-['Inter'] leading-normal">
-        2/3
+        {content}
       </span>
       <img className="w-6 h-6" src="chevron_right.svg" alt="right"></img>
     </button>

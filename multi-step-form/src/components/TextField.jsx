@@ -1,4 +1,4 @@
-export const TextField = ({ name, value, onChange }) => {
+export const TextField = ({ name, value, onChange, type }) => {
   return (
     <div className="flex h-[68px]">
       <div className="self-stretch justify-end flex flex-col gap-2 w-[100%] h-[68px]">
@@ -12,6 +12,7 @@ export const TextField = ({ name, value, onChange }) => {
           </span>
         </div>
         <input
+          type="type"
           placeholder="Type something"
           className="self-stretch w-[100%] p-3 h-[44px] rounded-lg outline  outline-offset-[-1px] outline-sky-500 inline-flex justify-start items-center"
           value={value}
