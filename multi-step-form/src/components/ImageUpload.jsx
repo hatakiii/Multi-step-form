@@ -1,7 +1,25 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-export const ImageUpload = ({ name }) => {
+export const ImageUpload = ({
+  name,
+  value,
+  onChange,
+  errorMessage,
+  form,
+  setForm,
+}) => {
   const fileInputRef = useRef(null);
+
+  const [preview, setPreview] = useState();
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    const filePreview = URL.createObjectURL(file);
+    setPreview(filePreview);
+    setForm({ ...form, profileImage: e.target.files[0] });
+  }
+
+  //Deed taliin hesgiig etseg component ruu ni zooj oruulana
 
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -17,34 +35,22 @@ export const ImageUpload = ({ name }) => {
       </div>
 
       {/* Upload box */}
-      <div
-        className="w-full h-[150px] border-2 border-dashed border-slate-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-sky-500 transition"
-        // onClick={() => fileInputRef.current.click()}
-      >
-        {/* Plus icon (SVG, no library needed) */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 text-slate-500"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 4v16m8-8H4"
-          />
-        </svg>
+      <div className="w-full h-[150px] border-2 border-dashed border-slate-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-sky-500 transition">
         <span className="mt-2 text-sm text-slate-500">Add image</span>
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          ref={fileInputRef}
-          //   onChange={onChange}
-        />
+
+        {preview ? (
+          <img src={preview} />
+        ) : (
+          <input
+            type="file"
+            className="opacity-0"
+            onChange={handleImageChange}
+          />
+        )}
       </div>
+      {errorMessage && (
+        <div className="text-red-500 text-sm">{errorMessage}</div>
+      )}
     </div>
   );
 };

@@ -11,6 +11,7 @@ import {
 } from "@/components";
 import { Step1 } from "@/components/Step1";
 import { Step2 } from "@/components/Step2";
+import { Step3 } from "@/components/Step3";
 import { useState } from "react";
 import React from "react";
 
@@ -27,6 +28,7 @@ export default function Home() {
     dateOfBirth: "",
     profileImage: "",
   });
+  console.log("form ajillaj bnu?", form);
   const [errors, setErrors] = useState({});
 
   const goToSecond = () => {
@@ -39,6 +41,14 @@ export default function Home() {
 
   const goBackFirst = () => {
     setStep("step1");
+  };
+
+  const goToFinal = () => {
+    setStep("final");
+  };
+
+  const goBackSecond = () => {
+    setStep("step2");
   };
 
   if (step === "step1") {
@@ -69,33 +79,14 @@ export default function Home() {
 
   if (step === "step3") {
     return (
-      <div className="bg-black font-['Inter'] flex align-middle justify-center w-[100%] h-[100%]">
-        <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-          <div className="flex flex-col w-full  justify-start items-start">
-            <Hero />
-            <div className="flex flex-col gap-3 w-[100%]">
-              <DateOfBirth
-                name="Date of birth"
-                value={form.confirmPassword}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    confirmPassword: e.target.value,
-                  })
-                }
-              />
-              <ImageUpload name="Profile image" />
-            </div>
-          </div>
-          <div className="flex w-full gap-2">
-            <BackButton onChangeStep={() => setStep("step2")} />
-            <ContinueButton2
-              content="3/3"
-              onChangeStep={() => setStep("final")}
-            />
-          </div>
-        </div>
-      </div>
+      <Step3
+        form={form}
+        setForm={setForm}
+        errors={errors}
+        setErrors={setErrors}
+        goBackSecond={goBackSecond}
+        goToFinal={goToFinal}
+      />
     );
   }
   if (step === "final") {

@@ -65,7 +65,7 @@ export const Step2 = ({
       !newErrors.password &&
       !newErrors.confirmPassword
     ) {
-      goToThird(); // Move to the next step if no errors
+      goToThird();
     }
   };
   return (
