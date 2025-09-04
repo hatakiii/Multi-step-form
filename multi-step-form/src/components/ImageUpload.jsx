@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const ImageUpload = ({
   name,
@@ -8,20 +9,36 @@ export const ImageUpload = ({
   form,
   setForm,
 }) => {
+  const [preview, setPreview] = useState(null);
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
+
+  useEffect(() => {
+    const savedPreview = localStorage.getItem("imagePreview");
+    if (savedPreview) {
+      setPreview(savedPreview);
+    }
+  }, []);
+
   function handleImageChange(e) {
     const file = e.target.files[0];
     if (!file) return;
-    setForm({ ...form, profileImage: file });
+
+    const filePreview = URL.createObjectURL(file);
+    setPreview(filePreview);
+    localStorage.setItem("imagePreview", filePreview);
+
+    if (onChange) onChange(file);
+
+    setFileInputKey(Date.now());
   }
 
   function handleRemoveImage() {
     setForm({ ...form, profileImage: "" });
-  }
+    setPreview(null);
+    localStorage.removeItem("imagePreview");
 
-  const preview =
-    form.profileImage && typeof form.profileImage !== "string"
-      ? URL.createObjectURL(form.profileImage)
-      : form.profileImage || null;
+    setFileInputKey(Date.now());
+  }
 
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -37,39 +54,41 @@ export const ImageUpload = ({
       </div>
 
       {/* Upload box */}
-      <div className="relative w-full h-[180px] border border-sky-500 rounded-lg flex flex-col items-center justify-center cursor-pointer transition">
+      <div className="relative w-full h-[180px] border border-sky-500 rounded-lg flex flex-col items-center justify-center cursor-pointer transition overflow-hidden">
         {preview ? (
           <>
             <img
               src={preview}
-              alt="Preview"
-              className="w-full h-[180px] object-cover rounded-lg"
+              alt="Selected"
+              className="absolute inset-0 w-full h-full object-cover rounded-lg"
             />
-            {/* Delete button */}
             <button
               type="button"
               onClick={handleRemoveImage}
-              className="absolute top-2 right-2 bg-black text-white p-1 rounded-full hover:bg-red-600"
+              className="absolute top-2 right-2 bg-black text-white p-1 rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+              aria-label="Remove image"
             >
               <X size={16} />
             </button>
           </>
         ) : (
-          <input
-            type="file"
-            className="absolute w-full h-full opacity-0 cursor-pointer focus:outline-[#0CA5E9] outline-sky-500"
-            onChange={handleImageChange}
-            accept="image/*"
-          />
-        )}
-        {!preview && (
-          <div className="flex flex-col justify-center">
-            <img src="./Add Image Icon@2x.svg" className="object-none"></img>
-            <span className="text-sm text-slate-500 pointer-events-none">
-              Add image
-            </span>
+          <div className="flex flex-col items-center justify-center pointer-events-none">
+            <img
+              src="./Add Image Icon@2x.svg"
+              alt="Add"
+              className="w-10 h-10 mb-2 object-contain"
+            />
+            <span className="text-sm text-slate-500">Add image</span>
           </div>
         )}
+
+        <input
+          key={fileInputKey}
+          type="file"
+          accept="image/*"
+          className="absolute inset-0 opacity-0 cursor-pointer"
+          onChange={handleImageChange}
+        />
       </div>
 
       {errorMessage && (

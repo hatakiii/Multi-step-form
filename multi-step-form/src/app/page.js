@@ -19,7 +19,8 @@ import React from "react";
 export default function Home() {
   const [step, setStep] = useState("step1"); // step1, step2, step3, final
 
-  const savedForm = localStorage.getItem("form");
+  const savedForm =
+    typeof window !== "undefined" ? localStorage.getItem("form") : null;
   const saveForm = JSON.parse(savedForm);
 
   const [form, setForm] = useState(
@@ -34,7 +35,7 @@ export default function Home() {
           password: "",
           confirmPassword: "",
           dateOfBirth: "",
-          profileImage: "",
+          profileImage: null,
         }
   );
 

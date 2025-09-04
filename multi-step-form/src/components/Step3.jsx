@@ -24,7 +24,7 @@ export const Step3 = ({
       newErrors.dateOfBirth = "Your field is empty";
     }
     //Validate profile image
-    if (form.profileImage !== "") {
+    if (form.profileImage !== null) {
       newErrors.profileImage = null;
     } else {
       newErrors.profileImage = "Your field is empty";
