@@ -66,66 +66,65 @@ export const Step2 = ({
       !newErrors.confirmPassword
     ) {
       goToThird();
+      localStorage.setItem("form", JSON.stringify(form));
     }
   };
   return (
-    <div className="bg-black font-['Inter'] flex align-middle justify-center w-[100%] h-[100%]">
-      <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-        <div className="flex flex-col w-full  justify-start items-start">
-          <Hero />
-          <div className="flex flex-col gap-3 w-[100%]">
-            <TextField
-              name="Email"
-              value={form.email}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  email: e.target.value,
-                })
-              }
-              errorMessage={errors.email && errors.email}
-            />
-            <TextField
-              name="Phone Number"
-              value={form.phoneNumber}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  phoneNumber: e.target.value,
-                })
-              }
-              errorMessage={errors.phoneNumber && errors.phoneNumber}
-            />
-            <TextField
-              type="password"
-              name="Password"
-              value={form.password}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  password: e.target.value,
-                })
-              }
-              errorMessage={errors.password && errors.password}
-            />
-            <TextField
-              type="password"
-              name="Confirm Password"
-              value={form.confirmPassword}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  confirmPassword: e.target.value,
-                })
-              }
-              errorMessage={errors.confirmPassword && errors.confirmPassword}
-            />
-          </div>
+    <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
+      <div className="flex flex-col w-full  justify-start items-start">
+        <Hero />
+        <div className="flex flex-col gap-3 w-[100%]">
+          <TextField
+            name="Email"
+            value={form.email}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                email: e.target.value,
+              })
+            }
+            errorMessage={errors.email && errors.email}
+          />
+          <TextField
+            name="Phone Number"
+            value={form.phoneNumber}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                phoneNumber: e.target.value,
+              })
+            }
+            errorMessage={errors.phoneNumber && errors.phoneNumber}
+          />
+          <TextField
+            type="password"
+            name="Password"
+            value={form.password}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                password: e.target.value,
+              })
+            }
+            errorMessage={errors.password && errors.password}
+          />
+          <TextField
+            type="password"
+            name="Confirm Password"
+            value={form.confirmPassword}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                confirmPassword: e.target.value,
+              })
+            }
+            errorMessage={errors.confirmPassword && errors.confirmPassword}
+          />
         </div>
-        <div className="flex w-full gap-2">
-          <BackButton onChangeStep={goBackFirst} />
-          <ContinueButton2 content="2/3" onChangeStep={handleNext} />
-        </div>
+      </div>
+      <div className="flex w-full gap-2">
+        <BackButton onChangeStep={goBackFirst} />
+        <ContinueButton2 content="2/3" onChangeStep={handleNext} />
       </div>
     </div>
   );

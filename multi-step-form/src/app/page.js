@@ -18,17 +18,28 @@ import React from "react";
 
 export default function Home() {
   const [step, setStep] = useState("step1"); // step1, step2, step3, final
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-    dateOfBirth: "",
-    profileImage: "",
-  });
+
+  const savedForm = localStorage.getItem("form");
+  const saveForm = JSON.parse(savedForm);
+
+  const [form, setForm] = useState(
+    savedForm
+      ? saveForm
+      : {
+          firstName: "",
+          lastName: "",
+          userName: "",
+          email: "",
+          phoneNumber: "",
+          password: "",
+          confirmPassword: "",
+          dateOfBirth: "",
+          profileImage: "",
+        }
+  );
+
+  // localStorage.setItem("savedForm", JSON.stringify(form));
+
   console.log("form ajillaj bnu?", form);
   const [errors, setErrors] = useState({});
 

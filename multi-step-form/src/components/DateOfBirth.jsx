@@ -13,13 +13,14 @@ export const DateOfBirth = ({ name, value, onChange, errorMessage }) => {
         </div>
 
         <input
+          placeholder="--/--/--"
           type="date"
-          className="w-full p-3 h-[44px] rounded-lg outline  outline-slate-300 pr-10 focus:outline-sky-500"
+          className="w-full p-3 h-[44px] rounded-md outline   pr-10 focus:outline-[#0CA5E9] outline-sky-500 text-[#121316]"
           value={value}
           onChange={onChange}
         />
         {errorMessage && (
-          <div className="text-red-500 text-sm">{errorMessage}</div>
+          <div className="text-red-500 text-sm">Please select a date</div>
         )}
       </div>
     </div>
