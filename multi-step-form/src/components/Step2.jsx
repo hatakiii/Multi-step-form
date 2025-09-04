@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "motion/react";
 import { TextField, Hero, ContinueButton } from "@/components";
 
 export const Step2 = ({
@@ -70,7 +71,7 @@ export const Step2 = ({
     }
   };
   return (
-    <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
+    <motion.div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
       <div className="flex flex-col w-full  justify-start items-start">
         <Hero />
         <div className="flex flex-col gap-3 w-[100%]">
@@ -126,6 +127,6 @@ export const Step2 = ({
         <BackButton onChangeStep={goBackFirst} />
         <ContinueButton2 content="2/3" onChangeStep={handleNext} />
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -1,98 +1,87 @@
+import { useRef, useState } from "react";
 import { X } from "lucide-react";
-import { useState, useEffect } from "react";
 
-export const ImageUpload = ({
-  name,
-  value,
-  onChange,
-  errorMessage,
-  form,
-  setForm,
-}) => {
+export const ImageUpload = ({ name, form, setForm, errorMessage }) => {
+  const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(null);
-  const [fileInputKey, setFileInputKey] = useState(Date.now());
 
-  useEffect(() => {
-    const savedPreview = localStorage.getItem("imagePreview");
-    if (savedPreview) {
-      setPreview(savedPreview);
-    }
-  }, []);
-
-  function handleImageChange(e) {
+  // Handle file selection
+  function handleFileChange(e) {
     const file = e.target.files[0];
     if (!file) return;
 
-    const filePreview = URL.createObjectURL(file);
-    setPreview(filePreview);
-    localStorage.setItem("imagePreview", filePreview);
+    // Preview for UI
+    const imageUrl = URL.createObjectURL(file);
+    setPreview(imageUrl);
 
-    if (onChange) onChange(file);
-
-    setFileInputKey(Date.now());
+    // Save file itself to parent form state
+    setForm({ ...form, profileImage: file });
   }
 
+  // Remove selected image
   function handleRemoveImage() {
-    setForm({ ...form, profileImage: "" });
     setPreview(null);
-    localStorage.removeItem("imagePreview");
-
-    setFileInputKey(Date.now());
+    setForm({ ...form, profileImage: null }); // clear from form
+    fileInputRef.current.value = ""; // reset input
   }
 
   return (
     <div className="flex flex-col gap-2 w-full">
       {/* Label */}
       <div>
-        <span className="text-slate-700 text-sm font-semibold font-['Inter'] leading-none">
-          {name}
-        </span>
-        <span className="text-red-500 text-sm font-semibold font-['Inter'] leading-none">
-          {" "}
-          *
-        </span>
+        <span className="text-slate-700 text-sm font-semibold">{name}</span>
+        <span className="text-red-500 text-sm font-semibold"> *</span>
       </div>
 
       {/* Upload box */}
-      <div className="relative w-full h-[180px] border border-sky-500 rounded-lg flex flex-col items-center justify-center cursor-pointer transition overflow-hidden">
-        {preview ? (
-          <>
-            <img
-              src={preview}
-              alt="Selected"
-              className="absolute inset-0 w-full h-full object-cover rounded-lg"
+      {preview ? (
+        <div className="relative w-full h-[150px]">
+          <img
+            src={preview}
+            alt="preview"
+            className="w-full h-full object-cover rounded-lg"
+          />
+          <button
+            type="button"
+            onClick={handleRemoveImage}
+            className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      ) : (
+        <div
+          className="w-full h-[150px] border-2 border-dashed border-slate-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-sky-500 transition"
+          onClick={() => fileInputRef.current.click()}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 text-slate-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4v16m8-8H4"
             />
-            <button
-              type="button"
-              onClick={handleRemoveImage}
-              className="absolute top-2 right-2 bg-black text-white p-1 rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
-              aria-label="Remove image"
-            >
-              <X size={16} />
-            </button>
-          </>
-        ) : (
-          <div className="flex flex-col items-center justify-center pointer-events-none">
-            <img
-              src="./Add Image Icon@2x.svg"
-              alt="Add"
-              className="w-10 h-10 mb-2 object-contain"
-            />
-            <span className="text-sm text-slate-500">Add image</span>
-          </div>
-        )}
+          </svg>
+          <span className="mt-2 text-sm text-slate-500">Add image</span>
+        </div>
+      )}
 
-        <input
-          key={fileInputKey}
-          type="file"
-          accept="image/*"
-          className="absolute inset-0 opacity-0 cursor-pointer"
-          onChange={handleImageChange}
-        />
-      </div>
-
+      {/* Hidden input */}
+      <input
+        type="file"
+        accept="image/*"
+        className="hidden"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+      />
       {errorMessage && (
-        <div className="text-red-500 text-sm">Image cannot be blank</div>
+        <div className="text-red-500 text-sm">{errorMessage}</div>
       )}
     </div>
   );

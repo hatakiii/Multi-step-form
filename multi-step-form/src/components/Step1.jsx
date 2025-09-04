@@ -1,4 +1,5 @@
 import React from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { TextField, Hero, ContinueButton } from "@/components";
 
 export const Step1 = ({ form, setForm, errors, goToSecond, setErrors }) => {
@@ -48,46 +49,53 @@ export const Step1 = ({ form, setForm, errors, goToSecond, setErrors }) => {
   };
 
   return (
-    <div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-      <div className="flex flex-col w-full justify-start items-start gap-7">
-        <Hero />
-        <div className="flex flex-col gap-3 w-[100%]">
-          <TextField
-            name="First Name"
-            value={form.firstName}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                firstName: e.target.value,
-              })
-            }
-            errorMessage={errors.firstName && errors.firstName}
-          />
-          <TextField
-            name="Last Name"
-            value={form.lastName}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                lastName: e.target.value,
-              })
-            }
-            errorMessage={errors.lastName && errors.lastName}
-          />
-          <TextField
-            name="Username"
-            value={form.userName}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                userName: e.target.value,
-              })
-            }
-            errorMessage={errors.userName && errors.userName}
-          />
+    <AnimatePresence mode="wait">
+      <motion.div
+        className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start relative"
+        initial={{ opacity: 0, right: -30 }}
+        animate={{ opacity: 1, right: 0, transition: { duration: 1 } }}
+        exit={{ opacity: 0, right: 30 }}
+      >
+        <div className="flex flex-col w-full justify-start items-start gap-7">
+          <Hero />
+          <div className="flex flex-col gap-3 w-[100%]">
+            <TextField
+              name="First Name"
+              value={form.firstName}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  firstName: e.target.value,
+                })
+              }
+              errorMessage={errors.firstName && errors.firstName}
+            />
+            <TextField
+              name="Last Name"
+              value={form.lastName}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  lastName: e.target.value,
+                })
+              }
+              errorMessage={errors.lastName && errors.lastName}
+            />
+            <TextField
+              name="Username"
+              value={form.userName}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  userName: e.target.value,
+                })
+              }
+              errorMessage={errors.userName && errors.userName}
+            />
+          </div>
         </div>
-      </div>
-      <ContinueButton onChangeStep={handleNext} />
-    </div>
+        <ContinueButton onChangeStep={handleNext} />
+      </motion.div>
+    </AnimatePresence>
   );
 };
