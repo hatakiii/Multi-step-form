@@ -79,7 +79,7 @@ export const ImageUpload = ({ name, form, setForm, errorMessage, value }) => {
       {/* Hidden input */}
 
       {errorMessage && (
-        <div className="text-red-500 text-sm">Image cannot be blank</div>
+        <div className="text-red-500 text-sm">{errorMessage}</div>
       )}
     </div>
   );

@@ -1,9 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { TextField, Hero, ContinueButton } from "@/components";
 
 export const Step1 = ({ form, setForm, errors, goToSecond, setErrors }) => {
   const nameRegex = /^[A-Za-z]+$/;
+
+  function useFirstRender() {
+    const first = useRef(true);
+    const [isFirstRender, setIsFirstRender] = useState(true);
+
+    useEffect(() => {
+      if (first.current) {
+        first.current = false;
+        setIsFirstRender(false);
+      }
+    }, []);
+
+    return first.current;
+  }
+
   const validateStep1 = () => {
     const newErrors = {};
 
@@ -68,7 +83,7 @@ export const Step1 = ({ form, setForm, errors, goToSecond, setErrors }) => {
   useEffect(() => {
     const newErrors = {};
     const nameRegex = /^[A-Za-z]+$/;
-    if (form.userName !== "") {
+    if (form.userName !== null) {
       newErrors.userName = null;
     } else {
       newErrors.userName = "Your field is empty";

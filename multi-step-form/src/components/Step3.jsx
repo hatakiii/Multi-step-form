@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { useEffect } from "react";
 import {
   Hero,
   DateOfBirth,
@@ -17,29 +16,32 @@ export const Step3 = ({
   goBackSecond,
   goToFinal,
 }) => {
+  const firstRender = useRef(true);
+
   const validateStep3 = () => {
     const newErrors = {};
-    //Validate date of birth
+    // Validate date of birth
     if (form.dateOfBirth !== "") {
       newErrors.dateOfBirth = null;
     } else {
       newErrors.dateOfBirth = "Your field is empty";
     }
-    //Validate profile image
+    // Validate profile image
     if (
-      typeof form.profileImage === "string" &&
-      form.profileImage.trim() !== ""
+      (typeof form.profileImage === "string" &&
+        form.profileImage.trim() !== "") ||
+      form.profileImage !== ""
     ) {
-      newErrors.profileImage = null;
-    } else if (form.profileImage !== "") {
       newErrors.profileImage = null;
     } else {
       newErrors.profileImage = "Your field is empty";
     }
     return newErrors;
   };
-  // Validate Date of birth with useEffect
+
+  // Validate Date of birth
   useEffect(() => {
+    if (firstRender.current) return;
     const newErrors = {};
     if (form.dateOfBirth !== "") {
       newErrors.dateOfBirth = null;
@@ -49,26 +51,26 @@ export const Step3 = ({
     setErrors({ ...errors, ...newErrors });
   }, [form.dateOfBirth]);
 
-  // Validate Profile image with useEffect
+  // Validate Profile image
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     const newErrors = {};
     if (
-      typeof form.profileImage === "string" &&
-      form.profileImage.trim() !== ""
+      (typeof form.profileImage === "string" &&
+        form.profileImage.trim() !== "") ||
+      form.profileImage !== ""
     ) {
       newErrors.profileImage = null;
-    } else if (form.profileImage !== "") {
+    } else if (form.profileImage === "") {
       newErrors.profileImage = null;
     } else {
       newErrors.profileImage = "Your field is empty";
     }
     setErrors({ ...errors, ...newErrors });
   }, [form.profileImage]);
-
-  useEffect(() => {
-    const newErrors = validateStep3();
-    setErrors({ ...errors, ...newErrors });
-  }, []);
 
   const handleNext = () => {
     const newErrors = validateStep3();
@@ -79,9 +81,10 @@ export const Step3 = ({
       localStorage.clear();
     }
   };
+
   return (
     <motion.div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
-      <div className="flex flex-col w-full  justify-start items-start">
+      <div className="flex flex-col w-full justify-start items-start">
         <Hero />
         <div className="flex flex-col gap-3 w-[100%]">
           <DateOfBirth
