@@ -13,7 +13,7 @@ export const TextField = ({ name, value, onChange, type, errorMessage }) => {
         </div>
         {!errorMessage ? (
           <input
-            type="type"
+            type={type}
             placeholder="Type something"
             className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
             value={value}
@@ -21,7 +21,7 @@ export const TextField = ({ name, value, onChange, type, errorMessage }) => {
           ></input>
         ) : (
           <input
-            type="type"
+            type={type}
             placeholder="Type something"
             className="w-full p-3 text-base leading-5 rounded-md outline outline-red-500 focus:outline-[#0CA5E9] text-[#121316]"
             value={value}
