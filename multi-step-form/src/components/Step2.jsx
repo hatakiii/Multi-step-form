@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { motion } from "motion/react";
 import { TextField, Hero, ContinueButton } from "@/components";
 
@@ -46,7 +47,10 @@ export const Step2 = ({
     }
 
     // Validate Confirm Password
-    if (form.password === form.confirmPassword) {
+    if (
+      form.password === form.confirmPassword &&
+      passwordRegex.test(form.password)
+    ) {
       newErrors.confirmPassword = null;
     } else if (form.confirmPassword === "") {
       newErrors.confirmPassword = "Your field is empty";
@@ -56,6 +60,60 @@ export const Step2 = ({
 
     return newErrors;
   };
+
+  // Validate Email with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    if (emailRegex.test(form.email)) {
+      newErrors.email = null;
+    } else if (form.firstName === "") {
+      newErrors.email = "Your field is empty";
+    } else {
+      newErrors.email = "Please provide a valid email address.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.email]);
+  // Validate Phone number with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    if (phoneRegex.test(form.phoneNumber)) {
+      newErrors.phoneNumber = null;
+    } else if (form.lastName === "") {
+      newErrors.phoneNumber = "Your field is empty";
+    } else {
+      newErrors.phoneNumber = "Please enter a valid phone number.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.phoneNumber]);
+  // Validate Password with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    if (passwordRegex.test(form.password)) {
+      newErrors.password = null;
+    } else if (form.password === "") {
+      newErrors.password = "Your field is empty";
+    } else {
+      newErrors.password = "Password must include letters and numbers.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.password]);
+  // Validate Confirm Password with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    if (form.password === form.confirmPassword) {
+      newErrors.confirmPassword = null;
+    } else if (form.confirmPassword === "") {
+      newErrors.confirmPassword = "Your field is empty";
+    } else {
+      newErrors.confirmPassword = "Passwords do not match. Please try again.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.confirmPassword]);
+
+  useEffect(() => {
+    const newErrors = validateStep2();
+    setErrors({ ...errors, ...newErrors });
+  }, []);
 
   const handleNext = () => {
     const newErrors = validateStep2();
@@ -74,7 +132,7 @@ export const Step2 = ({
     <motion.div className="w-[480px] h-[655px] p-8 bg-white rounded-lg inline-flex flex-col justify-between items-start">
       <div className="flex flex-col w-full  justify-start items-start">
         <Hero />
-        <div className="flex flex-col gap-3 w-[100%]">
+        <div className="flex flex-col gap-1 w-[100%]">
           <TextField
             name="Email"
             value={form.email}

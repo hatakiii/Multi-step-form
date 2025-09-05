@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
+import { useEffect } from "react";
 import {
   Hero,
   DateOfBirth,
@@ -37,6 +38,37 @@ export const Step3 = ({
     }
     return newErrors;
   };
+  // Validate Date of birth with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    if (form.dateOfBirth !== "") {
+      newErrors.dateOfBirth = null;
+    } else {
+      newErrors.dateOfBirth = "Your field is empty";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.dateOfBirth]);
+
+  // Validate Profile image with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    if (
+      typeof form.profileImage === "string" &&
+      form.profileImage.trim() !== ""
+    ) {
+      newErrors.profileImage = null;
+    } else if (form.profileImage !== "") {
+      newErrors.profileImage = null;
+    } else {
+      newErrors.profileImage = "Your field is empty";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.profileImage]);
+
+  useEffect(() => {
+    const newErrors = validateStep3();
+    setErrors({ ...errors, ...newErrors });
+  }, []);
 
   const handleNext = () => {
     const newErrors = validateStep3();

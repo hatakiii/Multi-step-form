@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { TextField, Hero, ContinueButton } from "@/components";
 
@@ -36,6 +36,45 @@ export const Step1 = ({ form, setForm, errors, goToSecond, setErrors }) => {
 
     return newErrors;
   };
+  // Validate First Name with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    const nameRegex = /^[A-Za-z]+$/;
+    if (nameRegex.test(form.firstName)) {
+      newErrors.firstName = null;
+    } else if (form.firstName === "") {
+      newErrors.firstName = "Your field is empty";
+    } else {
+      newErrors.firstName =
+        "First name cannot contain special characters or numbers.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.firstName]);
+  // Validate Last Name with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    const nameRegex = /^[A-Za-z]+$/;
+    if (nameRegex.test(form.lastName)) {
+      newErrors.lastName = null;
+    } else if (form.lastName === "") {
+      newErrors.lastName = "Your field is empty";
+    } else {
+      newErrors.lastName =
+        "Last name cannot contain special characters or numbers.";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.lastName]);
+  // Validate Username with useEffect
+  useEffect(() => {
+    const newErrors = {};
+    const nameRegex = /^[A-Za-z]+$/;
+    if (form.userName !== "") {
+      newErrors.userName = null;
+    } else {
+      newErrors.userName = "Your field is empty";
+    }
+    setErrors({ ...errors, ...newErrors });
+  }, [form.userName]);
 
   const handleNext = () => {
     const newErrors = validateStep1();

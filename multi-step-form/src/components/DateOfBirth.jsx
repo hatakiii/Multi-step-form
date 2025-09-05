@@ -11,14 +11,24 @@ export const DateOfBirth = ({ name, value, onChange, errorMessage }) => {
             *
           </span>
         </div>
+        {!errorMessage ? (
+          <input
+            placeholder="--/--/--"
+            type="date"
+            className="w-full p-3 h-[44px] rounded-md outline   focus:outline-[#0CA5E9] outline-[#CBD5E1] text-[#121316]"
+            value={value}
+            onChange={onChange}
+          />
+        ) : (
+          <input
+            placeholder="--/--/--"
+            type="date"
+            className="w-full p-3 h-[44px] rounded-md outline focus:outline-[#0CA5E9] outline-red-500 text-[#121316]"
+            value={value}
+            onChange={onChange}
+          />
+        )}
 
-        <input
-          placeholder="--/--/--"
-          type="date"
-          className="w-full p-3 h-[44px] rounded-md outline   pr-10 focus:outline-[#0CA5E9] outline-sky-500 text-[#121316]"
-          value={value}
-          onChange={onChange}
-        />
         {errorMessage && (
           <div className="text-red-500 text-sm">Please select a date</div>
         )}
