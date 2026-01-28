@@ -32,7 +32,7 @@ export const ImageUpload = ({ name, form, setForm, errorMessage, value }) => {
 
     localStorage.removeItem("imagePreview");
   }
-  // console.log("errormessage", errorMessage);
+  
 
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -75,8 +75,6 @@ export const ImageUpload = ({ name, form, setForm, errorMessage, value }) => {
           />
         </div>
       )}
-
-      {/* Hidden input */}
 
       {errorMessage && (
         <div className="text-red-500 text-sm">{errorMessage}</div>
