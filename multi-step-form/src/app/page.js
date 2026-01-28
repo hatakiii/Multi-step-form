@@ -1,13 +1,10 @@
 "use client";
 
 import {
-  TextField,
-  ContinueButton,
-  Hero,
+  
   BackButton,
   ContinueButton2,
-  DateOfBirth,
-  ImageUpload,
+  
 } from "@/components";
 import { Step1 } from "@/components/Step1";
 import { Step2 } from "@/components/Step2";

@@ -75,6 +75,7 @@ export const ImageUpload = ({ name, form, setForm, errorMessage, value }) => {
           />
         </div>
       )}
+      
 
       {errorMessage && (
         <div className="text-red-500 text-sm">{errorMessage}</div>
