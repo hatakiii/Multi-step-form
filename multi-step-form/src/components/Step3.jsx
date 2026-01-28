@@ -20,13 +20,13 @@ export const Step3 = ({
 
   const validateStep3 = () => {
     const newErrors = {};
-    // Validate date of birth
+    
     if (form.dateOfBirth !== "") {
       newErrors.dateOfBirth = null;
     } else {
       newErrors.dateOfBirth = "Your field is empty";
     }
-    // Validate profile image
+    
     if (
       (typeof form.profileImage === "string" &&
         form.profileImage.trim() !== "") ||
@@ -39,7 +39,7 @@ export const Step3 = ({
     return newErrors;
   };
 
-  // Validate Date of birth
+  
   useEffect(() => {
     if (firstRender.current) return;
     const newErrors = {};
@@ -51,7 +51,7 @@ export const Step3 = ({
     setErrors({ ...errors, ...newErrors });
   }, [form.dateOfBirth]);
 
-  // Validate Profile image
+  
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;

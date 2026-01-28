@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 export default function Home() {
   const [step, setStep] = useState("step1"); // step1, step2, step3, final
-  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+  const [direction, setDirection] = useState(1); 
 
   const [form, setForm] = useState({
     firstName: "",
