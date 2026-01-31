@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  
-  BackButton,
-  ContinueButton2,
-  
-} from "@/components";
+import { BackButton, ContinueButton2 } from "@/components";
 import { Step1 } from "@/components/Step1";
 import { Step2 } from "@/components/Step2";
 import { Step3 } from "@/components/Step3";
@@ -16,7 +11,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 export default function Home() {
   const [step, setStep] = useState("step1"); // step1, step2, step3, final
-  const [direction, setDirection] = useState(1); 
+  const [direction, setDirection] = useState(1);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -40,7 +35,6 @@ export default function Home() {
 
   const [errors, setErrors] = useState({});
 
-  // Step navigation handlers with direction
   const goToSecond = () => {
     setDirection(1);
     setStep("step2");
